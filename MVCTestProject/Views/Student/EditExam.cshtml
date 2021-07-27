@@ -1,0 +1,50 @@
+﻿@model MVCTestProject.Models.Exam
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>EditExam</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditExam">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<input type="hidden" asp-for="id" />*@
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="chinese" class="control-label"></label>
+                <input asp-for="chinese" class="form-control" />
+                <span asp-validation-for="chinese" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="english" class="control-label"></label>
+                <input asp-for="english" class="form-control" />
+                <span asp-validation-for="english" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="math" class="control-label"></label>
+                <input asp-for="math" class="form-control" />
+                <span asp-validation-for="math" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Exam" asp-route-id="@Model.xh">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

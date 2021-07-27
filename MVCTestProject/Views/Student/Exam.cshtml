@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Title"] = "Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model MVCTestProject.Models.StudentResult
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#sumCount").text(@Model.sumCount);
+        for (var i = 1;i<=@Model.pageNum;i++) {
+            if (i ==@Model.pageIndex) {
+                $("#currentSelect").append("<option value='" + i + "' selected>第" + i + "页</option>");
+            }
+            else {
+                $("#currentSelect").append("<option value='" + i + "'>第" + i + "页</option>");
+            }
+        }
+        $("#pageSizeSelect").val(@Model.pageSize);
+        if (@Model.pageIndex==1) {
+            $("#preBtn").attr('disabled', true);
+        }
+        if (@Model.pageIndex==@Model.pageNum) {
+            $("#nextBtn").attr('disabled', true);
+        }
+    });
+    function changePage() {
+        var pageIndex = $("#currentSelect").val();
+        var pageSize = $("#pageSizeSelect").val();
+        window.location.href = '../Exam/@(ViewData["id"])?pageIndex=' + pageIndex + '&pageSize=' + pageSize;
+    }
+    function changePageSize() {
+        var pageSize = $("#pageSizeSelect").val();
+        window.location.href = '../Exam/@(ViewData["id"])?pageIndex=1&pageSize=' + pageSize;
+    }
+    function prePage() {
+        var pageIndex = $("#currentSelect").val();
+        if (pageIndex == 1) {
+            alert('已经是第一页了！');
+            return false;
+        }
+        var pageSize = $("#pageSizeSelect").val();
+        window.location.href = '../Exam/@(ViewData["id"])?pageIndex=' + (parseInt(pageIndex)-1) + '&pageSize=' + pageSize;
+    }
+    function nextPage() {
+        var pageIndex = $("#currentSelect").val();
+        if (pageIndex == @Model.pageNum) {
+            alert('已经是最后一页了！');
+            return false;
+        }
+        var pageSize = $("#pageSizeSelect").val();
+        window.location.href = '../Exam/@(ViewData["id"])?pageIndex=' + (parseInt(pageIndex) + 1) + '&pageSize=' + pageSize;
+    }
+
+    function allCheck() {
+        $("input[type='checkbox'][name='checkOne']").each(function (i, e) {
+            e.checked = $("#checkAll")[0].checked;
+        });
+    }
+    function oneCheck() {
+        $("#checkAll")[0].checked =
+            $("input[type='checkbox'][name='checkOne']:checked").length ==
+            $("input[type='checkbox'][name='checkOne']").length;
+    }
+    function mulDelete() {
+        var ids = [];
+        $("input[type='checkbox'][name='checkOne']:checked").each(function (i, e) {
+            ids.push(e.value);
+        });
+        if (ids.length == 0) {
+            alert('没有选择要删除的数据！');
+        }
+        else {
+            $.post("/Student/MulDeleteExam", { ids: ids.join(','),xh:@(ViewData["id"]) }, function (data) {
+                alert(data.message);
+                window.location.reload();
+            });
+        }
+    }
+
+
+</script>
+
+<h2>Exams</h2>
+
+<p>@ViewData["Title"]---@Model.message</p>
+
+<p>当前学生：@Model.studentname； 学号为：@Model.xh</p>
+
+
+<button onclick="window.location.href = '../AddExam?id=' +@(ViewData["id"])">Create</button>
+@*<a asp-action="AddExam" asp-route-id="@(((List<Exam>)Model.studentList)[0].xh)">Create</a>*@
+<button onclick="mulDelete()">批量删除</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" name="checkAll" id="checkAll" onclick="allCheck()" />
+                全选
+            </th>
+            @*<th>
+                    学号
+                    <a href="~/Student/Exam/@(ViewData["id"])?orderField=xh&orderType=asc">↑</a>
+                    <a href="~/Student/Exam/@(ViewData["id"])?orderField=xh&orderType=desc">↓</a>
+                </th>
+                <th>
+                    姓名
+                    <a href="~/Student/Exam/@(ViewData["id"])?orderField=studentname&orderType=asc">↑</a>
+                    <a href="~/Student/Exam/@(ViewData["id"])?orderField=studentname&orderType=desc">↓</a>
+                </th>*@
+            <th>
+                考试
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=name&orderType=asc">↑</a>
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=name&orderType=desc">↓</a>
+            </th>
+            <th>
+                语文
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=chinese&orderType=asc">↑</a>
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=chinese&orderType=desc">↓</a>
+            </th>
+            <th>
+                英语
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=english&orderType=asc">↑</a>
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=english&orderType=desc">↓</a>
+            </th>
+            <th>
+                数学
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=math&orderType=asc">↑</a>
+                <a href="~/Student/Exam/@(ViewData["id"])?orderField=math&orderType=desc">↓</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Exam e in (List<Exam>)Model.studentList)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="checkOne" id="checkOne_+@e.id" value="@e.id" onchange="oneCheck()" />
+                </td>
+                @*<td>@e.xh</td>
+                    <td>@e.studentname</td>*@
+                <td>@e.name</td>
+                <td>@e.chinese</td>
+                <td>@e.english</td>
+                <td>@e.math</td>
+                <td>
+                    <a asp-action="EditExam" asp-route-id="@e.id">Edit</a> |
+                    <a asp-action="DeleteExam" asp-route-id="@e.id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<div style="margin-top:20px;">
+    <button id="preBtn" onclick="prePage()">上一页</button>
+    当前
+    <select id="currentSelect" onchange="changePage()">
+    </select>
+    页
+    <button id="nextBtn" onclick="nextPage()">下一页</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;共<label id="sumCount"></label>条
+    &nbsp;&nbsp;&nbsp;&nbsp;每页显示
+    <select id="pageSizeSelect" onchange="changePageSize()">
+        <option>5</option>
+        <option>10</option>
+        <option>15</option>
+    </select>
+    条
+</div>
+
+

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" ?>
+<Exams>
+  <Exam xh="1">
+    <id>1</id>
+    <name>一季度考试</name>
+    <chinese>59</chinese>
+    <english>89</english>
+    <math>100</math>
+  </Exam>
+  <Exam xh="1">
+    <id>2</id>
+    <name>四月份月考</name>
+    <chinese>64</chinese>
+    <english>93</english>
+    <math>88</math>
+  </Exam>
+  <Exam xh="1">
+    <id>3</id>
+    <name>期中考试</name>
+    <chinese>74</chinese>
+    <english>99</english>
+    <math>97</math>
+  </Exam>
+  <Exam xh="1">
+    <id>4</id>
+    <name>期末考试</name>
+    <chinese>80</chinese>
+    <english>92</english>
+    <math>99</math>
+  </Exam>
+  <Exam xh="2">
+    <id>5</id>
+    <name>期中考试</name>
+    <chinese>44</chinese>
+    <english>99</english>
+    <math>66</math>
+  </Exam>
+  <Exam xh="2">
+    <id>6</id>
+    <name>期末考试</name>
+    <chinese>76</chinese>
+    <english>93</english>
+    <math>100</math>
+  </Exam>
+  <Exam xh="3">
+    <id>7</id>
+    <name>五月月考</name>
+    <chinese>23</chinese>
+    <english>44</english>
+    <math>77</math>
+  </Exam>
+  <Exam xh="3">
+    <id>8</id>
+    <name>期末考试</name>
+    <chinese>99</chinese>
+    <english>96</english>
+    <math>100</math>
+  </Exam>
+
+</Exams>

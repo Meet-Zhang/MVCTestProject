@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Stu";
+}
+@model MVCTestProject.Models.StudentResult
+
+
+<h2>Student</h2>
+
+<p>@ViewData["Title"]---@Model.message</p>
+
+
+<button onclick="location.href='../Student/Add'">Create</button>
+<form asp-controller="Student" asp-action="Index">
+        <input type="text" name="searchTxt" />
+        <input type="submit" value="Filter" />
+</form>
+
+@*<input type="text" id="searchTxtId" />
+<input type="button" value="Filter" onclick="goSearch()" />*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+                <a href="../Student/Index?orderField=id&orderType=asc">↑</a>
+                <a href="../Student/Index?orderField=id&orderType=desc">↓</a>
+            </th>
+            <th>
+                姓名
+                <a href="../Student/Index?orderField=name&orderType=asc">↑</a>
+                <a href="../Student/Index?orderField=name&orderType=desc">↓</a>
+            </th>
+            <th>
+                年龄
+                <a href="../Student/Index?orderField=age&orderType=asc">↑</a>
+                <a href="../Student/Index?orderField=age&orderType=desc">↓</a>
+            </th>
+            <th>
+                成绩
+                <a href="../Student/Index?orderField=cj&orderType=asc">↑</a>
+                <a href="../Student/Index?orderField=cj&orderType=desc">↓</a>
+            </th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Student s in (List<Student>)Model.studentList)
+        {
+            <tr>
+                <td>@s.id</td>
+                <td>@s.name</td>
+                <td>@s.age</td>
+                <td>@s.cj</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@s.id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@s.id">Delete</a> |
+                    <a asp-action="Exam" asp-route-id="@s.id">Exam</a> |
+                    <a asp-action="Details" asp-route-id="@s.id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script src="../../Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        
+    });
+    function goSearch() {
+        $.get("/Student/Search?searchTxt=" + $('#searchTxtId').val(), function (data) {
+            alert(data.studentList[0].name);
+        });
+    }
+</script>

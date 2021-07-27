@@ -1,0 +1,41 @@
+﻿@model MVCTestProject.Models.Exam
+
+@{
+    ViewData["Title"] = "EditExam";
+}
+
+<h1>DeleteExam</h1>
+
+<h4>确定要删除该条数据么？</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DeleteExam">
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="chinese" class="control-label"></label>
+                <input asp-for="chinese" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="english" class="control-label"></label>
+                <input asp-for="english" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="math" class="control-label"></label>
+                <input asp-for="math" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="DeleteExam" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Exam" asp-route-id="@Model.xh">Back to List</a>
+</div>
+

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<Students>
+  <Student>
+    <id>1</id>
+    <name>JayZhou</name>
+    <age>42</age>
+    <cj>43</cj>
+    <info height="188" weight="60" city="台北"></info>
+  </Student>
+  <Student>
+    <id>2</id>
+    <name>JJ</name>
+    <age>35</age>
+    <cj>71</cj>
+    <info height="175" weight="55" city="新加坡"></info>
+  </Student>
+  <Student>
+    <id>3</id>
+    <name>MeetZhang</name>
+    <age>29</age>
+    <cj>98</cj>
+    <info height="187" weight="68" city="沈阳"></info>
+  </Student>
+</Students>
